@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'faker'
 Order.destroy_all
 ItemMaterial.destroy_all
 ItemCategory.destroy_all
@@ -15,4 +16,7 @@ Category.destroy_all
 Material.destroy_all
 
 
-User.create(name: "Luis Reyes",email: "testing@email.com",password:"fake")
+u1 = User.create(name: "Luis Reyes",email: "testing@email.com",password:"fake")
+item1 = Item.create(name: "Diamond Engagement Ring 3/4 ct tw Round-cut 14K White Gold",price: 1274.25,active:true,detail: Faker::Hipster.paragraph,description:"For an everlasting love, never-ending sparkle. Awash in round diamonds, this extraordinary engagement ring is crafted of 14K white gold. The ring has a total diamond weight of 3/4 carat.")
+
+order1= Order.create(purchased_price: 200.05, delivery: "Normal", status: "pending",order_date: DateTime.now(),street: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, country: "USA", zip: Faker::Address.zip, item:item1,user:u1)
