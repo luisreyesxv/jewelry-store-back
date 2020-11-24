@@ -17,6 +17,40 @@ Material.destroy_all
 
 
 u1 = User.create(name: "Luis Reyes",email: "testing@email.com",password:"fake")
-item1 = Item.create(name: "Diamond Engagement Ring 3/4 ct tw Round-cut 14K White Gold",price: 1274.25,active:true,detail: Faker::Hipster.paragraph,description:"For an everlasting love, never-ending sparkle. Awash in round diamonds, this extraordinary engagement ring is crafted of 14K white gold. The ring has a total diamond weight of 3/4 carat.")
+# item1 = Item.create(name: "Diamond Engagement Ring 3/4 ct tw Round-cut 14K White Gold",price: 1274.25,active:true,detail: Faker::Hipster.paragraph,description:"For an everlasting love, never-ending sparkle. Awash in round diamonds, this extraordinary engagement ring is crafted of 14K white gold. The ring has a total diamond weight of 3/4 carat.")
 
-order1= Order.create(purchased_price: 200.05, delivery: "Normal", status: "pending",order_date: DateTime.now(),street: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, country: "USA", zip: Faker::Address.zip, item:item1,user:u1)
+# order1= Order.create(purchased_price: 200.05, delivery: "Normal", status: "pending",order_date: DateTime.now(),street: Faker::Address.street_address, city: Faker::Address.city, state: Faker::Address.state_abbr, country: "USA", zip: Faker::Address.zip, item:item1,user:u1)
+silver = Material.create(name: "silver")
+platinum = Material.create(name:"platinum")
+gold = Material.create(name: "gold")
+
+necklace = Category.create(name: "necklace")
+ring = Category.create(name: "ring")
+grill = Category.create(name:  "grill")
+earring = Category.create(name: "earrings")
+chain = Category.create(name: "chain")
+
+
+
+def createItem (item: , materials:, categories:, images:)
+
+    newItem= Item.create(item)
+    puts "new Item created"
+
+    categories.each{|category| ItemCategory.create(item: newItem,category: category)}
+    puts "categories added"
+    materials.each{|material| ItemMaterial.create(item: newItem,material: material)}
+    puts "materials added"
+    images.each{|image| Image.create(item: newItem,image_url: image)}
+    puts "images added"
+
+end
+
+item1= {name: "Luis Just made up this Name",
+price: 1274.25,
+active:true,
+detail: Faker::Hipster.paragraph,
+description:"For an everlasting love, never-ending sparkle. Awash in round diamonds, this extraordinary engagement ring is crafted of 14K white gold. The ring has a total diamond weight of 3/4 carat."}
+
+ringImg1= "https://res.cloudinary.com/dpojhdtrn/image/upload/v1606160778/gold%20ring%201.png"
+createItem(item: item1, materials: [gold,silver], categories: [ring], images: [ringImg1])

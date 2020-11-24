@@ -8,8 +8,6 @@ class ItemSerializer < ActiveModel::Serializer
   # has_many :item_categories
   has_many :categories, through: :item_categories
 
-  def slug
-    return object.name.parameterize
-  end
+
 
 end
