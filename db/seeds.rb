@@ -46,7 +46,7 @@ def createItem (item: , materials:, categories:, images:)
 
 end
 
-item1= {name: "Luis Just made up this Name",
+item1= {name: "Diamond Engagement Ring 3/4 ct tw Round-cut 14K White Gold",
 price: 1274.25,
 active:true,
 detail: Faker::Hipster.paragraph,

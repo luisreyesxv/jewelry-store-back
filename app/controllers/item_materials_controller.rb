@@ -1,2 +1,0 @@
-class ItemMaterialsController < ApplicationController
-end
