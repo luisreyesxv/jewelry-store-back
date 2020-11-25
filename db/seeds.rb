@@ -47,10 +47,34 @@ def createItem (item: , materials:, categories:, images:)
 end
 
 item1= {name: "Diamond Engagement Ring 3/4 ct tw Round-cut 14K White Gold",
-price: 1274.25,
-active:true,
-detail: Faker::Hipster.paragraph,
-description:"For an everlasting love, never-ending sparkle. Awash in round diamonds, this extraordinary engagement ring is crafted of 14K white gold. The ring has a total diamond weight of 3/4 carat."}
-
+        price: Faker::Commerce.price,
+        active:true,
+        detail: Faker::Hipster.paragraph,
+        description:"For an everlasting love, never-ending sparkle. Awash in round diamonds, this extraordinary engagement ring is crafted of 14K white gold. The ring has a total diamond weight of 3/4 carat."
+}
 ringImg1= "https://res.cloudinary.com/dpojhdtrn/image/upload/v1606160778/gold%20ring%201.png"
 createItem(item: item1, materials: [gold,silver], categories: [ring], images: [ringImg1])
+
+
+def randomItem(digit)
+
+
+
+newItem= Item.create(name: Faker::Appliance.brand + " "+ Faker::Cannabis.cannabinoid + digit.to_s ,
+price: Faker::Commerce.price,
+active:true,
+detail: Faker::Hipster.paragraph,
+description: Faker::Hipster.paragraph(sentence_count: [1..8].sample))
+    puts "new Item created"
+
+    ItemCategory.create(item: newItem,category: Category.all.sample)
+    puts "categories added"
+   ItemMaterial.create(item: newItem,material: Material.all.sample)
+    puts "materials added"
+    Image.create(item: newItem,image_url: "https://res.cloudinary.com/dpojhdtrn/image/upload/v1606160778/gold%20ring%201.png")
+    puts "images added"
+
+    puts "Random Item added #{digit}"
+end
+
+(1..30).each{|number| randomItem(number)}
