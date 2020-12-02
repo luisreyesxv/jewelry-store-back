@@ -48,5 +48,12 @@ class ApplicationController < ActionController::API
 
     end
 
+
+# this would be the method i want to use to see if user is "logged in" and is also an admin instead of running authorized. Currently need to change the last thing
+# to check something besides a specific user id
+    def administrator?
+        render json: {message: "You must contact the administrator for the right to see this"}, status: :unauthorized unless logged_in? && logged_in_user.id == 19
+    end
+
 end
 
