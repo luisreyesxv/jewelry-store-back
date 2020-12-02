@@ -8,7 +8,7 @@ class Item < ApplicationRecord
 
 
         validates :slug,:name, uniqueness: true
-        validates :slug,:name, presence: true;
+        validates :name, presence: true;
 
         after_create :update_slug
         before_update :assign_slug
