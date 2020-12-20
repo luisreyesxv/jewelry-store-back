@@ -8,18 +8,18 @@ class ApplicationController < ActionController::API
     def encode_token(payload)
         JWT.encode(payload, Rails.application.credentials.jwt_token,"HS256", {typ:"JWT"})
     end
-
-
-
-
-    def auth_header
-        request.headers['Authorization']
+    
+    def token_from_cookie
+        cookie.signed[:jwt]
     end
 
+    # def auth_header
+    #     request.headers['Authorization']
+    # end
+
     def decoded_token
-        if auth_header
-            #Authorization header should look something like "Bearer <blahblahlblahblah>"
-            token= auth_header.split(" ")[1]
+        if token_from_cookie
+            token= token_from_cookie
             # byebug
             begin
                 JWT.decode(token, Rails.application.credentials.jwt_token, true, algorithm: "HS256")

@@ -9,8 +9,10 @@ class API::V1::ItemsController < ApplicationController
     end
 
     def show
-
         item = Item.find_by(slug: params[:slug])
         render json: item
     end
+
+
+ 
 end

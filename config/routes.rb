@@ -9,7 +9,13 @@ Rails.application.routes.draw do
       resources :images
       resources :orders
       resources :items, param: :slug
-      resources :users
+
+
+      get "/users", to: "users#index"
+      get "/users/id", to: "users#show"
+      post "/login", to: "users#login"
+      post "/register", to: "users#register"
+      delete "/login", to:  "users#logout"
     end
   end
 
