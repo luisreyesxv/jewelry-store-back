@@ -2,7 +2,7 @@ class API::V1::UsersController < ApplicationController
     skip_before_action :authorized
     
     def index
-        cookies.signed[:jwt] = {value: "this is the new cookie from visiting user with expiration time", httponly: true, expires: 10.second.from_now}
+        # cookies.signed[:jwt] = {value: "this is the new cookie from visiting user with expiration time", httponly: true, expires: 10.second.from_now}
         # cookies.delete(:jwt)
         users = User.all
         render json:users
@@ -20,6 +20,8 @@ class API::V1::UsersController < ApplicationController
         if user.valid?
             create_token(user)
             render json: user
+        else
+            render json: {error: "Issue with registerring an account. Please try again"}
         end
 
     end
