@@ -46,3 +46,5 @@ gem 'faker'
 gem 'will_paginate'
 
 gem 'jwt'
+
+gem 'rspec-rails'
