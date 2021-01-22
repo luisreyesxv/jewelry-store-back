@@ -57,9 +57,6 @@ createItem(item: item1, materials: [gold,silver], categories: [ring], images: [r
 
 
 def randomItem(digit)
-
-
-
 newItem= Item.create(name: Faker::Appliance.brand + " "+ Faker::Cannabis.cannabinoid + digit.to_s ,
 price: Faker::Commerce.price,
 active:true,

@@ -27,7 +27,7 @@ end
 
 it 'will cause an error if the password\'s length is not between 6-20 characters in length' do
     too_short = User.create(name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(min_length: 2, max_length:5) )
-    too_long = User.create(name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(min_length: 20, max_length: 30 ))
+    too_long = User.create(name: Faker::Name.name, email: Faker::Internet.email, password: Faker::Internet.password(min_length: 21, max_length: 30 ))
     expect(too_short).to_not be_valid
     expect(too_long).to_not be_valid
     expect(too_short.errors[:password]).to eq(["is too short (minimum is 6 characters)"])

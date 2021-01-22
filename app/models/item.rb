@@ -15,7 +15,8 @@ class Item < ApplicationRecord
 
 
         def update_slug
-            update_attributes slug: assign_slug
+            assign_slug
+            self.save
         end
 
         def create_slug
