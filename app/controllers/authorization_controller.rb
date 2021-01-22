@@ -10,7 +10,7 @@ class AuthorizationController < ApplicationController
     end
     
     def token_from_cookie
-        cookie.signed[:jwt]
+        cookies.signed[:jwt]
     end
 
     # def auth_header
@@ -46,6 +46,7 @@ class AuthorizationController < ApplicationController
 
 
     def authorized
+    
         render json: {message: 'Please Log In'}, status: :unauthorized unless logged_in?
 
     end

@@ -1,5 +1,5 @@
 class API::V1::UsersController < AuthorizationController
-    skip_before_action :authorized
+    skip_before_action :authorized, only: [:index, :register, :login]
     
     def index
         # cookies.signed[:jwt] = {value: "this is the new cookie from visiting user with expiration time", httponly: true, expires: 10.second.from_now}
@@ -38,9 +38,21 @@ class API::V1::UsersController < AuthorizationController
         end
     end
 
+    def session
+        user = User.find_by(email: user_params[:email])
+
+        if user && user.authenticate(user_params[:password])
+            create_token(user)
+            render json: user
+        else
+            render json: {error: "User/password combination does not exist, Please Try Again"}, status: :unauthorized
+        end
+
+    end
+
     def logout
 
-        cookie.delete(:jwt)
+        cookies.delete(:jwt)
         render head: :ok
     end
 
@@ -51,7 +63,7 @@ class API::V1::UsersController < AuthorizationController
 
     def create_token(user)
         token= encode_token(user_id: user.id)
-        cookie.signed[:jwt] = {value: token, httponly: true, expires: 4.hour.from_now}
+        cookies.signed[:jwt] = {value: token, httponly: true, expires: 4.hour.from_now}
     end
    
 end
