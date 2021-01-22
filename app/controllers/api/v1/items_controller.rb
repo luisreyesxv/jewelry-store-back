@@ -1,5 +1,5 @@
 class API::V1::ItemsController < ApplicationController
-    skip_before_action :authorized
+    # skip_before_action :authorized
     # before_action :administrator?
     def index
         # items = Item.all

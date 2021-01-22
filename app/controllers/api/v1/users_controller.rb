@@ -1,4 +1,4 @@
-class API::V1::UsersController < ApplicationController
+class API::V1::UsersController < AuthorizationController
     skip_before_action :authorized
     
     def index
@@ -21,7 +21,7 @@ class API::V1::UsersController < ApplicationController
             create_token(user)
             render json: user
         else
-            render json: {error: "Issue with registerring an account. Please try again"}
+            render json: {error: "Issue with registering an account. Please try again"}
         end
 
     end
@@ -40,7 +40,7 @@ class API::V1::UsersController < ApplicationController
 
     def logout
 
-        cooke.delete(:jwt)
+        cookie.delete(:jwt)
         render head: :ok
     end
 
