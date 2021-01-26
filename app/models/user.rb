@@ -4,6 +4,6 @@ class User < ApplicationRecord
     has_many :items, through: :orders
 
     validates :email, uniqueness: true, presence: true
-    validates :password, length: { in: 6..20 }
+    validates :password, length: { in: 6..20 }, on: :create
 
 end

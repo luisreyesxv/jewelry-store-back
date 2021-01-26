@@ -41,7 +41,7 @@ class API::V1::UsersController < AuthorizationController
     def session
         user = User.find_by(email: user_params[:email])
 
-        if user && user.authenticate(user_params[:password])
+        if user
             create_token(user)
             render json: user
         else
