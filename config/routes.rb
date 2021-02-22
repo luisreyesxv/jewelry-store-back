@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       post "/register", to: "users#register"
       delete "/login", to:  "users#logout"
       post "/session", to: "users#session"
+      get "/showcase", to: "items#showcase"
 
     end
   end

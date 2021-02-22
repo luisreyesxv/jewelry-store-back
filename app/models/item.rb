@@ -21,7 +21,14 @@ class Item < ApplicationRecord
 
         def create_slug
             return self.name.parameterize
-         end
+        end
+
+
+        def self.showcase_items
+            return Item.all.sample(5)
+        end
+
+
 
     private
         

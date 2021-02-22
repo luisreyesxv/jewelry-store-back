@@ -13,6 +13,13 @@ class API::V1::ItemsController < ApplicationController
         render json: item
     end
 
+    def showcase
+        items = Item.showcase_items
+        render json: items
+
+    end
+
+
 
  
 end
