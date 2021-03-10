@@ -15,7 +15,7 @@ class API::V1::UsersController < AuthorizationController
 
 
     def register
-        user = user.create(user_params)
+        user = User.create(user_params)
 
         if user.valid?
             create_token(user)
@@ -39,7 +39,7 @@ class API::V1::UsersController < AuthorizationController
     end
 
     def session
-        user = User.find_by(email: user_params[:email])
+        user = logged_in_user
 
         if user
             create_token(user)
