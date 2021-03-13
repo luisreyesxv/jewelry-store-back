@@ -7,10 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 Order.destroy_all
+Image.destroy_all
 ItemMaterial.destroy_all
 ItemCategory.destroy_all
 User.destroy_all
-Image.destroy_all
 Item.destroy_all
 Category.destroy_all
 Material.destroy_all
@@ -41,7 +41,7 @@ def createItem (item: , materials:, categories:, images:)
     puts "categories added"
     materials.each{|material| ItemMaterial.create(item: newItem,material: material)}
     puts "materials added"
-    images.each{|image| Image.create(item: newItem,image_url: image)}
+    images.each{|image| Image.create(item_material: newItem.item_materials.all.sample,image_url: image)}
     puts "images added"
 
 end
@@ -53,7 +53,7 @@ item1= {name: "Diamond Engagement Ring 3/4 ct tw Round-cut 14K White Gold",
         description:"For an everlasting love, never-ending sparkle. Awash in round diamonds, this extraordinary engagement ring is crafted of 14K white gold. The ring has a total diamond weight of 3/4 carat."
 }
 ringImg1= "https://res.cloudinary.com/dpojhdtrn/image/upload/v1606160778/gold%20ring%201.png"
-createItem(item: item1, materials: [gold,silver], categories: [ring], images: [ringImg1])
+createItem(item: item1, materials: [gold,silver], categories: [ring], images: [ringImg1,"https://i.pinimg.com/originals/cf/e9/3a/cfe93a55232f27627a66a2a367fe1c4c.gif"])
 
 
 def randomItem(digit)
@@ -66,9 +66,9 @@ description: Faker::Hipster.paragraph(sentence_count: [1..8].sample))
 
     ItemCategory.create(item: newItem,category: Category.all.sample)
     puts "categories added"
-   ItemMaterial.create(item: newItem,material: Material.all.sample)
+   newItemMaterial = ItemMaterial.create(item: newItem, material: Material.all.sample)
     puts "materials added"
-    Image.create(item: newItem,image_url: "https://res.cloudinary.com/dpojhdtrn/image/upload/v1606160778/gold%20ring%201.png")
+    Image.create(item_material: newItemMaterial, image_url: "https://res.cloudinary.com/dpojhdtrn/image/upload/v1606160778/gold%20ring%201.png")
     puts "images added"
 
     puts "Random Item added #{digit}"
