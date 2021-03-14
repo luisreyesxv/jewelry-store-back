@@ -9,6 +9,6 @@ class ItemMaterialSerializer < ActiveModel::Serializer
   end
 
   def images
-     Image.all.where(item_material: object).map{|image| image.image_url}
+     Image.all.where(item_material: object).map{|image| image.image_url}.to_h{|url| [object.material.name,url]}
   end
 end
