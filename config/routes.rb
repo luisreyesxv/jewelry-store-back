@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       delete "/login", to:  "users#logout"
       post "/session", to: "users#session"
       get "/showcase", to: "items#showcase"
+      get "/search/:query", to: "items#search"
 
     end
   end

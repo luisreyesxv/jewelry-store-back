@@ -10,7 +10,12 @@ class API::V1::ItemsController < ApplicationController
 
     def show
         item = Item.find_by(slug: params[:slug])
-        render json: item
+        if(item)
+            render json: item
+        else
+            render json: {error: "Item Could Not Be Found"}, status: :not_found
+        end
+
     end
 
     def showcase
@@ -18,6 +23,14 @@ class API::V1::ItemsController < ApplicationController
         render json: items
 
     end
+
+    def search
+        items = Item.search_by_name(params[:query]).where(active: true)
+        render json: items
+    end
+
+
+    
 
 
 

@@ -1,4 +1,12 @@
 class Item < ApplicationRecord
+    include PgSearch::Model
+    pg_search_scope :search_by_name, 
+    against: :name, 
+    using: {
+        tsearch: {prefix: true}
+    }
+   
+
         has_many :orders
         has_many :item_materials
         has_many :materials, through: :item_materials

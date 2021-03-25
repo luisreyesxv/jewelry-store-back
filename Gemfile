@@ -48,3 +48,5 @@ gem 'will_paginate'
 gem 'jwt'
 
 gem 'rspec-rails'
+
+gem 'pg_search'
