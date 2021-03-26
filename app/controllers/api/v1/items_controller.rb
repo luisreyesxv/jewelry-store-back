@@ -26,7 +26,7 @@ class API::V1::ItemsController < ApplicationController
 
     def search
         items = Item.search_by_name(params[:query]).where(active: true)
-        render json: items
+        render json: items,  each_serializer: ItemSearchSerializer
     end
 
 
