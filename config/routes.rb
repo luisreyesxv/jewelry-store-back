@@ -20,6 +20,10 @@ Rails.application.routes.draw do
       get "/showcase", to: "items#showcase"
       get "/search/:query", to: "items#search"
 
+
+      post "/password/forgot", to: "password_recoveries#forgot"
+      post "/password/reset", to: "password_recoveries#reset"
+
     end
   end
 

@@ -1,0 +1,16 @@
+<h1> Hi <%= @user.name.titleize %>,</h1>
+
+<p>
+    Welcome to Luis Reyes Bartolome's Project Site.
+    <br>
+     You have successfully signed up a new account to 
+     <strong><%= Rails.application.credentials[:mail][:frontend_name] %> </strong>,
+    your username is: <i><%= @user.email %></i>
+
+</p>
+
+<p>
+    Thanks for registering an account and trying out the application! Please visit my 
+    <%= link_to "Portfolio", "https://LuisReyesBartolome.com" %>
+     site to see more projects I've made.
+</p>

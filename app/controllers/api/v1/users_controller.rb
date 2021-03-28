@@ -19,6 +19,7 @@ class API::V1::UsersController < AuthorizationController
 
         if user.valid?
             create_token(user)
+            UserMailer.welcome_email(user).deliver_now
             render json: user
         else
             render json: {error: "Issue with registering an account. Please try again"}
