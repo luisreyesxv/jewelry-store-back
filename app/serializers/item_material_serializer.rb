@@ -1,14 +1,15 @@
 class ItemMaterialSerializer < ActiveModel::Serializer
-  attributes :name, :images
-  has_one :image
-  # has_one :item
-  # has_one :material
+  attributes :material, :quantity
 
-  def name
+  belongs_to :item
+
+  def material
     object.material.name
   end
 
-  def images
-     Image.all.where(item_material: object).map{|image| image.image_url}.to_h{|url| [object.material.name,url]}
+  def quantity
+    @instance_options[:quantity][:"#{object.id}"]
   end
+
+
 end

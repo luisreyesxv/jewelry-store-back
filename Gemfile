@@ -50,3 +50,5 @@ gem 'jwt'
 gem 'rspec-rails'
 
 gem 'pg_search'
+
+gem 'stripe'

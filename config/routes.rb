@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :categories
       resources :materials
       resources :images
-      resources :orders
+
       resources :items, param: :slug
 
 
@@ -19,10 +19,14 @@ Rails.application.routes.draw do
       post "/session", to: "users#session"
       get "/showcase", to: "items#showcase"
       get "/search/:query", to: "items#search"
+      post "/checkout", to: "orders#checkout"
+      post "/checkout/purchase", to: "orders#create"
 
 
       post "/password/forgot", to: "password_recoveries#forgot"
       post "/password/reset", to: "password_recoveries#reset"
+
+
 
     end
   end
