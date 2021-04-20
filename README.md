@@ -1,5 +1,6 @@
 # libraries
 pg_search
+stripe gem (CC)
 
 
 # README

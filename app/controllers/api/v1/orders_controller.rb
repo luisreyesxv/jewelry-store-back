@@ -6,7 +6,12 @@ class API::V1::OrdersController < AuthorizationController
 
     def create
         user = @user
-        items = Item.where(slug: orders_params[:items])
+        item_ids = cookies.signed[:cart][:items]
+        quantity = cookies.signed[:cart][:quantity]
+
+
+        Order.create_stripe_order(item_ids: item_ids , quantity: quantity, token: charge_params[:token], shipping: charge_params[:shipping])
+        # items = Item.where(slug: orders_params[:items])
 
         line_items = items.map do |item|
     
@@ -40,6 +45,12 @@ class API::V1::OrdersController < AuthorizationController
 
     end
 
+    def charge_params
+        params.require(:orders).permit(:token, shipping: {}, billing: {})
+
+        # params.require(:orders).permit(:token, shipping: {:firstName, :lastName, :street, :state, :zip}, billing: {:firstName, :lastName, :street, :state, :zip} )
+    end
+
     def find_item_materials
         item_ids = []
         quantities = {}
@@ -49,15 +60,7 @@ class API::V1::OrdersController < AuthorizationController
             item_ids.push(item[:id])
             quantities[:"#{item[:id]}"] = item[:quantity]
         end
-
-        
-
-
-        {items: ItemMaterial.where(id: item_ids) , quantity: quantities }
-
-       
-
-
+        {items:  item_ids , quantity: quantities  }
     end
 
 end
