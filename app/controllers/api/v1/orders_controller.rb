@@ -10,17 +10,15 @@ class API::V1::OrdersController < AuthorizationController
         quantity = cookies.signed[:cart][:quantity]
 
 
-        Order.create_stripe_order(item_ids: item_ids , quantity: quantity, token: charge_params[:token], shipping: charge_params[:shipping])
-        # items = Item.where(slug: orders_params[:items])
-
-        line_items = items.map do |item|
-    
-                {currency: "USD",
-                amount: item.price,
-                name: item.nameluis 
-            
-            }
+       result = Order.create_stripe_order(user: user, item_ids: item_ids , quantity: quantity, token: charge_params[:token], shipping: charge_params[:shipping])
+        if result
+            render json: result, quantity: quantity
+        else
+            render head 401
         end
+        
+    
+        
     end
 
     def checkout
@@ -46,9 +44,7 @@ class API::V1::OrdersController < AuthorizationController
     end
 
     def charge_params
-        params.require(:orders).permit(:token, shipping: {}, billing: {})
-
-        # params.require(:orders).permit(:token, shipping: {:firstName, :lastName, :street, :state, :zip}, billing: {:firstName, :lastName, :street, :state, :zip} )
+        params.require(:orders).permit(:token, shipping: {})
     end
 
     def find_item_materials

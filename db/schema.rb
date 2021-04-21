@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_28_133845) do
+ActiveRecord::Schema.define(version: 2021_04_21_041031) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,13 +72,13 @@ ActiveRecord::Schema.define(version: 2021_03_28_133845) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
-    t.bigint "item_id", null: false
     t.string "street"
     t.string "city"
     t.string "state"
     t.string "country"
     t.string "zip"
-    t.index ["item_id"], name: "index_orders_on_item_id"
+    t.bigint "item_material_id"
+    t.index ["item_material_id"], name: "index_orders_on_item_material_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -97,6 +97,6 @@ ActiveRecord::Schema.define(version: 2021_03_28_133845) do
   add_foreign_key "item_categories", "items"
   add_foreign_key "item_materials", "items"
   add_foreign_key "item_materials", "materials"
-  add_foreign_key "orders", "items"
+  add_foreign_key "orders", "item_materials"
   add_foreign_key "orders", "users"
 end
