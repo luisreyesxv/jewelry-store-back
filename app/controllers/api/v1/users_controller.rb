@@ -54,7 +54,7 @@ class API::V1::UsersController < AuthorizationController
     def logout
 
         cookies.delete(:jwt)
-        render head: :ok
+        head 200
     end
 
     private

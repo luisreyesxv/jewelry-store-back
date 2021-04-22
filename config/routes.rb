@@ -26,6 +26,8 @@ Rails.application.routes.draw do
       post "/password/forgot", to: "password_recoveries#forgot"
       post "/password/reset", to: "password_recoveries#reset"
 
+      get "/orders", to: "orders#index"
+
 
 
     end

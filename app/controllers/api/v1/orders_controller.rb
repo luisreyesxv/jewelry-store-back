@@ -1,6 +1,6 @@
 class API::V1::OrdersController < AuthorizationController
     def index
-        orders = Order.all
+        orders = Orders.all
         render json: orders
     end
 
@@ -23,10 +23,10 @@ class API::V1::OrdersController < AuthorizationController
 
     def checkout
         
-        items = find_item_materials
-        cookies.signed[:cart] = {value: items, httponly: true}
+        items, item_ids, quantity = find_item_materials
+        cookies.signed[:cart] = {value: item_ids, httponly: true}
 
-        render json: items[:items] , quantity: items[:quantity]
+        render json: items , quantity: quantity
 
     end
 
@@ -50,7 +50,8 @@ class API::V1::OrdersController < AuthorizationController
             item_ids.push(item[:id])
             quantities[:"#{item[:id]}"] = item[:quantity]
         end
-        {items:  item_ids , quantity: quantities  }
+
+       return ItemMaterial.includes(:item, :material).where(id: item_ids),  item_ids ,  quantities  
     end
 
 end
