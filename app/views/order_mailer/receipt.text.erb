@@ -1,0 +1,21 @@
+Name: <%= @user.name.titleize %>
+Date Purchased: <%= Date.today.strftime('%b %d %Y') %>
+
+
+Dear <%= @user.name.titleize %>
+
+
+Thank you for your <%= Rails.application.credentials[:mail][:frontend_name] %> purchase. A receipt of your purchase is below. Be Sure to keep it in a safe place for future reference
+
+
+
+        <%  @items.each do |item|   %>
+            <% @quantity[:"#{item[:id]}"].times do     %>
+                <%= item.item.name  %>  <%= "$ #{'%.2f' % item.item.price}" %> 
+            <% end %>
+        <% end %>
+
+        SubTotal: <%= "$ #{'%.2f' % @items.sum{ |item| (@quantity[:"#{item[:id]}"] * item.item.price)}}" %>
+        Shipping: <%= '%.2f' % Order.shipping_rate %>
+        Total: <%= "$ #{'%.2f' % (@items.sum{ |item| @quantity[:"#{item[:id]}"] *(item.item.price * Order.tax_rate)}+Order.shipping_rate)}" %>
+    This e-mail message has been delivered from a send-only address. Please do not reply to this message.

@@ -12,6 +12,7 @@ class API::V1::OrdersController < AuthorizationController
 
        result = Order.create_stripe_order(user: user, item_ids: item_ids , quantity: quantity, token: charge_params[:token], shipping: charge_params[:shipping])
         if result
+            OrderMailer.receipt(user, result,quantity)
             render json: result, quantity: quantity
         else
             render head 401

@@ -40,6 +40,16 @@ class Order < ApplicationRecord
 
     end
 
+    def self.tax_rate
+        # this is where if I needed to have a dynamic tax rate, it should come up here. Could be based on state, or item, this should figure that out
+        1.08875
+    end
+    
+    def self.shipping_rate
+        # this is where I could create a specific shipping_rate. Based on state, or shipping package they may add later
+        25.00
+    end
+
 
     private
 
@@ -58,13 +68,5 @@ class Order < ApplicationRecord
       return  (sum * 100).to_i ,orders
     end
 
-    def self.tax_rate
-        # this is where if I needed to have a dynamic tax rate, it should come up here. Could be based on state, or item, this should figure that out
-        1.08875
-    end
-    
-    def self.shipping_rate
-        # this is where I could create a specific shipping_rate. Based on state, or shipping package they may add later
-        25.00
-    end
+   
 end

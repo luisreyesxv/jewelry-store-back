@@ -1,0 +1,78 @@
+<p>
+
+<table style="width:36%; float: right; background-color: #EEE ; padding: 10px; margin: 0 0 3em;">
+    <tr>
+        <th style="float: left; border-radius: 0.25em;"><span contenteditable>Name:</span></th>
+        <td style="float: right;border-radius: 0.25em;"><span data-prefix></span><span><%= @user.name.titleize %></span></td>
+    </tr>
+    <tr>
+        <th style="float: left;border-radius: 0.25em;"><span contenteditable>Date Purchased:</span></th>
+        <td style="float: right;border-radius: 0.25em;"><span data-prefix></span><span contenteditable><%= Date.today.strftime('%b %d %Y') %></span></td>
+    </tr>
+</table>
+</p>
+
+<br/>
+
+
+
+
+<h2> Dear <%= @user.name.titleize %>,</h2>
+
+<p>
+Thank you for your <strong><%= Rails.application.credentials[:mail][:frontend_name] %></strong> purchase. A receipt of your purchase is below. Be Sure to keep it in a safe place for future reference
+</p>
+
+<p>
+<table style="margin-left: auto; margin-right: auto;">
+    <colgroup>
+        <col style="width: 548px">
+        <col style="width: 198px">
+    </colgroup>
+    <thead>
+        <tr style="border-radius: 0.25em; background-color: #EEE">
+            <th ><span style="font-weight:bold"><h3>Details</h3></span></th>
+            <th><span style="font-weight:bold"><h3>Price</h3></span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <%  @items.each do |item|   %>
+            <% @quantity[:"#{item[:id]}"].times do     %>
+                <tr>
+                    <td> <%= "#{item.item.name} / material- #{item.material.name}"  %> </td>
+                    <td style="float: right;"> <%= "$ #{'%.2f' % item.item.price}" %> 
+                </tr>
+
+            <% end %>
+        <% end %>
+    </tbody>
+</table>
+</p>
+
+<p>
+<table style="width:36%; float: right; margin: 0 0 3em; ">
+    <tr style="background-color: #EEE ; padding: 10px;">
+        <th style="float: left;border-radius: 0.25em;"><span contenteditable>SubTotal</span></th>
+        <td style="float: right;border-radius: 0.25em;"><span data-prefix></span><span><%= "$ #{'%.2f' % @items.sum{ |item| (@quantity[:"#{item[:id]}"] * item.item.price)}}" %></span></td>
+    </tr>
+    <tr style="background-color: #EEE ; padding: 10px;">
+        <th style="float: left;border-radius: 0.25em;"><span contenteditable>Shipping</span></th>
+        <td style="float: right;border-radius: 0.25em;"><span data-prefix>$</span><span contenteditable><%= '%.2f' % Order.shipping_rate %></span></td>
+    </tr>
+    <tr>
+        <th style="float: left;border-radius: 0.25em;"><span contenteditable><h2>Total</h2></span></th>
+        <td style="float: right;border-radius: 0.25em;"><span data-prefix></span><span><h2><%= "$ #{'%.2f' % (@items.sum{ |item| @quantity[:"#{item[:id]}"] *(item.item.price * Order.tax_rate)}+Order.shipping_rate)}" %></h2></span></td>
+    </tr>
+</table>
+</p>
+
+<aside>
+   
+    <div>
+        <p>This e-mail message has been delivered from a send-only address. Please do not reply to this message.</p>
+    </div>
+</aside>
+
+
+
+
