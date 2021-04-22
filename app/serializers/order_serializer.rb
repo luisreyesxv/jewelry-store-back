@@ -1,7 +1,7 @@
 class OrderSerializer < ActiveModel::Serializer
   attributes :id, :purchased_price, :delivery, :status, :order_date , :shipping_address
   belongs_to :user
-  belongs_to :item
+  belongs_to :item_material
 
 
   def shipping_address

@@ -5,7 +5,7 @@ Date Purchased: <%= Date.today.strftime('%b %d %Y') %>
 Dear <%= @user.name.titleize %>
 
 
-Thank you for your <%= Rails.application.credentials[:mail][:frontend_name] %> purchase. A receipt of your purchase is below. Be Sure to keep it in a safe place for future reference
+Thank you for your <%= Rails.application.credentials[:mail][:frontend_name] %> purchase. A receipt of your purchase is below. Be sure to keep it in a safe place for future reference
 
 
 
@@ -18,4 +18,9 @@ Thank you for your <%= Rails.application.credentials[:mail][:frontend_name] %> p
         SubTotal: <%= "$ #{'%.2f' % @items.sum{ |item| (@quantity[:"#{item[:id]}"] * item.item.price)}}" %>
         Shipping: <%= '%.2f' % Order.shipping_rate %>
         Total: <%= "$ #{'%.2f' % (@items.sum{ |item| @quantity[:"#{item[:id]}"] *(item.item.price * Order.tax_rate)}+Order.shipping_rate)}" %>
+
+
+
     This e-mail message has been delivered from a send-only address. Please do not reply to this message.
+    This site is currently not "active" and is not actually charging your card, though the card information was sent through Stripe Test environment. This was done as part of a
+    project by Luis Reyes Bartolome. Check out my resume which I attached and head over to https://LuisReyesBartolome.com to see my portfolio and other projects of mine.

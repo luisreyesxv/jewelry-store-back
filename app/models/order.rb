@@ -11,7 +11,6 @@ class Order < ApplicationRecord
         # items = ItemMaterial.includes(:item).find([445,446,447,448,449])
         sum,orders = Order.get_sum(items: items, quantity: quantity , shipping: shipping, user: user)
 
-
         charge = Stripe::Charge.create(
 
             amount: sum,
@@ -31,7 +30,9 @@ class Order < ApplicationRecord
             }   
         )
 
-        Order.where(id: orders).update_all(status: "purchased", delivery: "pending")
+        Order.where(id: orders).update_all(status: "purchased", delivery: "pending", charge_confirmation: charge[:id])
+
+  
             return items
 
     rescue
@@ -56,16 +57,18 @@ class Order < ApplicationRecord
     def self.get_sum(items: , quantity:, shipping: , user: )
         orders = []
        sum = items.sum do |item| 
+        
         item_quantity = quantity[:"#{item[:id]}"]
-        item_sum = (item.item.price *  Order.tax_rate * item_quantity).to_f.round(2)
+        item_sum = item.item.price *  Order.tax_rate * item_quantity
         
     
-         orders.push( Order.create(purchased_price: item_sum, item_material: item, order_date: DateTime.now,user: user, street: shipping[:street], city: shipping[:city], state: shipping[:state], zip: shipping[:zip], country: "US") )
+         item_quantity.times do orders.push( Order.create(purchased_price: item_sum, item_material: item, order_date: DateTime.now,user: user, street: shipping[:street], city: shipping[:city], state: shipping[:state], zip: shipping[:zip], country: "US") ) end
         item_sum
     
        end
+
        sum+= Order.shipping_rate
-      return  (sum * 100).to_i ,orders
+      return  ( ('%.2f' % sum).to_f * 100).to_i ,orders
     end
 
    

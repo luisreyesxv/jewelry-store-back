@@ -12,14 +12,13 @@ class API::V1::OrdersController < AuthorizationController
 
        result = Order.create_stripe_order(user: user, item_ids: item_ids , quantity: quantity, token: charge_params[:token], shipping: charge_params[:shipping])
         if result
-            OrderMailer.receipt(user, result,quantity)
-            render json: result, quantity: quantity
+            OrderMailer.receipt(user, result,quantity).deliver_now
+            cookies.delete(:cart)
+            render json: {message: "success"}
         else
-            render head 401
+            render json: {error: "There was a problem charging the card. Please re-enter the CC and try again later"}, status: 401
         end
-        
-    
-        
+
     end
 
     def checkout
@@ -28,12 +27,6 @@ class API::V1::OrdersController < AuthorizationController
         cookies.signed[:cart] = {value: items, httponly: true}
 
         render json: items[:items] , quantity: items[:quantity]
-
-        # the idea is to call find_item_materials, go through the params and get the quantities and item_materials. #checkout is supposed to reconfirm what the cart information 
-        # is in a localized state and updates the cart with what the servers spits out. If they change anything, it should change the cart state and it should go through checkout again.
-        # After that #checkout should send some kinda signed cookie with quantity and item_material ids (maybe just send quantities array). when it is confirmed, it should go to #create
-        # which will actually call Stripe and refind those items again. make list items and kset them in order table.
-
 
     end
 

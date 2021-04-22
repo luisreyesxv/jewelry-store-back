@@ -1,5 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
   attributes  :name, :email
   has_many :orders
-  has_many :items, through: :orders
+  # has_many :item_materials, through: :orders
 end
