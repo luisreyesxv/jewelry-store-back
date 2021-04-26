@@ -1,0 +1,58 @@
+
+
+<h2 style="margin-left: auto; margin-right: auto"> Custom Jewelry Inquiry </h2>
+
+<p>
+
+<table style="width:36%; float: right; background-color: #EEE ; padding: 10px; margin: 0 0 3em;">
+    <tr>
+        <th style="float: left; border-radius: 0.25em;"><span contenteditable>Customer Email:</span></th>
+        <td style="float: right;border-radius: 0.25em;"><span data-prefix></span><span><%= @user %></span></td>
+    </tr>
+    <tr>
+        <th style="float: left;border-radius: 0.25em;"><span contenteditable>Date:</span></th>
+        <td style="float: right;border-radius: 0.25em;"><span data-prefix></span><span contenteditable><%= Date.today.strftime('%b %d %Y') %></span></td>
+    </tr>
+</table>
+</p>
+
+
+<table style="margin-left: auto; margin-right: auto;border: 1px solid black; border-collapse: collapse">
+    <colgroup>
+        <col style="width: 198px">
+        <col style="width: 548px">
+    </colgroup>
+    
+    <tbody>
+                <tr>
+                    <td style="border: 1px solid black; background-color: green"> Name: </td>
+                    <td style="float: right; padding: 1em"> <%= "#{@details[:firstName]} #{@details[:lastName]}" %> 
+                </tr>
+                <tr>
+                    <td style="border: 1px solid black; background-color: green"> Email: </td>
+                    <td style="float: right; padding: 1em"> <%= @user %> 
+                </tr>
+                <tr>
+                    <td style="border: 1px solid black; background-color: green"> Budget: </td>
+                    <td style="float: right; padding: 1em"> <%= "#{@details[:budget]}" %> 
+                </tr>
+               
+                <tr>
+                    <td style="border: 1px solid black; background-color: green"> Material : </td>
+                    <td style="float: right; padding: 1em"> <%= @details[:material] %> 
+                </tr>
+                <tr>
+                    <td style="border: 1px solid black; background-color: green"> Diamonds? : </td>
+                    <td style="float: right; padding: 1em"> <p><%= @details[:diamond] %> </p>
+                </tr>
+                <tr>
+                    <td style="border: 1px solid black; background-color: green"> Description : </td>
+                    <td style="float: right; padding: 1em"> <p><%= @details[:description] %> </p>
+                </tr>
+
+            
+    </tbody>
+</table>
+        
+        
+    
