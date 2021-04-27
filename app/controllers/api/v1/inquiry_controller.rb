@@ -1,7 +1,6 @@
 class API::V1::InquiryController < ApplicationController
 
     def custom_work
-        puts inquiry_params[:firstName]
         InquiryMailer.custom_jewelry(inquiry_params).deliver_now
 
 
