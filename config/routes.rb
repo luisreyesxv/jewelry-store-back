@@ -4,9 +4,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :item_materials
       resources :item_categories
-      resources :categories
       resources :materials
       resources :images
+      
 
       resources :items, param: :slug
 
@@ -29,6 +29,8 @@ Rails.application.routes.draw do
       post "/inquiry/CustomWork", to: "inquiry#custom_work"
       post "/inquiry/Repair", to: "inquiry#repair"
       post "/inquiry/Repurpose", to: "inquiry#repurpose"
+
+      post '/categories/:category', to: "categories#index"
 
 
 
