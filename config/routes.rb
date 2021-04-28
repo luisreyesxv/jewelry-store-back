@@ -27,6 +27,8 @@ Rails.application.routes.draw do
       post "/password/reset", to: "password_recoveries#reset"
 
       post "/inquiry/CustomWork", to: "inquiry#custom_work"
+      post "/inquiry/Repair", to: "inquiry#repair"
+      post "/inquiry/Repurpose", to: "inquiry#repurpose"
 
 
 
