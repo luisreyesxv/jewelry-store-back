@@ -33,7 +33,7 @@ class Item < ApplicationRecord
 
 
         def self.showcase_items
-            return Item.all.sample(5)
+            return Item.all.sample(10)
         end
 
 
