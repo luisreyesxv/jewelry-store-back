@@ -1,10 +1,11 @@
 class ItemSerializer < ActiveModel::Serializer
-  attributes :name, :slug, :price, :active, :detail, :description, :extra
+  attributes :name, :slug, :price, :active, :detail, :description, :extra, :category
 
   # has_many :item_materials
   # has_many :orders
   # has_many :images, through: :item_materials
   has_many :materials, through: :item_materials
+  
   # has_many :item_categories
   # has_many :categories, through: :item_categories
 
@@ -21,6 +22,10 @@ class ItemSerializer < ActiveModel::Serializer
     [item_material.material.name.to_sym, {id:item_material.id,images:
     item_material.images.map{|image| image.image_url}}] 
   }
+  end
+
+  def category
+    ItemCategory.includes(:item,:category).find_by(item: object).category.name
   end
 
  
