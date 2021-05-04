@@ -169,7 +169,7 @@ necklace_array =[ {
         platinum: ["https://res.cloudinary.com/dpojhdtrn/image/upload/v1620083975/necklace/platinum/necklace_1_platinum_1_bsh6lv.png","https://res.cloudinary.com/dpojhdtrn/image/upload/v1620083976/necklace/platinum/necklace_1_platinum_2_k6vdep.png"]
         }
     
-    },
+    }.
     {
         materials: [gold, platinum ],
         images: {
@@ -428,64 +428,5 @@ rings_array = [ {
 
 
 
-    def create_new_items(materials, images, category)
-        newItem= Item.create(name: Faker::Ancient.send(["god","primordial","titan","hero"].sample)+ rand(1..30).to_s + " "+ Faker::BossaNova.song ,
-        price: Faker::Commerce.price(range: 50.00..1500.0),
-        active:true,
-        detail: Faker::Hipster.paragraph,
-        description: Faker::Lorem.paragraph(sentence_count: rand(3..5), supplemental: false, random_sentences_to_add: 8))
-
-        puts "new Item created"
-        ItemCategory.create(item: newItem,category: category)
-        puts "new ItemCategory created"
-
-
-
-        
-        materials.each do |material|
-            newItemMaterial = ItemMaterial.create(item: newItem, material: material)
-            puts "materials added"
-
-            images[material.name.to_sym].each do |image|
-                Image.create(item_material: newItemMaterial, image_url: image)
-            end
-            puts "images added"
-        end
-
-    end
-
-    
-    watches_array.each do |watchItem| 
-
-
-    create_new_items(watchItem[:materials], watchItem[:images],watch)
-
-    end
-    earrings_array.each do |earringItem| 
-
-
-        create_new_items(earringItem[:materials], earringItem[:images],earring)
-    
-    end
-    grills_array.each do |grillsItem| 
-
-
-        create_new_items(grillsItem[:materials], grillsItem[:images],grill)
-    
-    end
-    necklace_array.each do |necklaceItem| 
-
-
-        create_new_items(necklaceItem[:materials], necklaceItem[:images],necklace)
-    
-    end
-    rings_array.each do |ringItem| 
-
-
-        create_new_items(ringItem[:materials], ringItem[:images],ring)
-    
-    end
-
-    
 
 
