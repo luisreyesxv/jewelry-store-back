@@ -33,7 +33,8 @@ class Item < ApplicationRecord
 
 
         def self.showcase_items
-            return Item.all.sample(10)
+            return Item.includes(:item_materials,:materials, :item_categories, :categories, :images).all.sample(10)
+            # return Item.all.sample(10)
         end
 
 
