@@ -105,6 +105,7 @@ Rails.application.configure do
 
 
   # set up for gmail account
+  config.action_mailer.default_url_options = { :host => 'https://bartolome-jewelry-backend.herokuapp.com' }
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
