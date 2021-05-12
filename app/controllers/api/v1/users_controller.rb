@@ -46,6 +46,7 @@ class API::V1::UsersController < AuthorizationController
             create_token(user)
             render json: user
         else
+            puts "this is the user #{user}"
             render json: {error: "User/password combination does not exist, Please Try Again"}, status: :unauthorized
         end
 
