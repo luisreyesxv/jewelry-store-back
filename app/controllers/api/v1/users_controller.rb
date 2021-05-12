@@ -30,6 +30,7 @@ class API::V1::UsersController < AuthorizationController
 
     def login
         user = User.find_by(email: user_params[:email])
+        puts cookies.signed[:jwt]
 
         if user && user.authenticate(user_params[:password])
             create_token(user)
@@ -65,7 +66,8 @@ class API::V1::UsersController < AuthorizationController
 
     def create_token(user)
         token= encode_token(user_id: user.id)
-        cookies.signed[:jwt] = {value: token, httponly: true, expires: 4.hour.from_now}
+        cookies.signed[:jwt] = {value: token, httponly: false,same_site: "None", secure: :true, expires: 4.hour.from_now}
+
     end
    
 end
