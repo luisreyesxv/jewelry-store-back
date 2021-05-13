@@ -24,7 +24,7 @@ class API::V1::OrdersController < AuthorizationController
     def checkout
         
         items, item_ids, quantity = find_item_materials
-        cookies.signed[:cart] = {value: item_ids, httponly: true}
+        cookies.signed[:cart] = {value: item_ids, httponly: true, same_site: :none, secure: :true, domain: :all}
 
         render json: items , quantity: quantity
 
