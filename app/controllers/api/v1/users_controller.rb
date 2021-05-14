@@ -54,7 +54,7 @@ class API::V1::UsersController < AuthorizationController
 
     def logout
 
-        cookies.delete(:jwt)
+        cookies.delete(:jwt, domain: :all)
         head 200
     end
 
@@ -65,10 +65,7 @@ class API::V1::UsersController < AuthorizationController
 
     def create_token(user)
         token= encode_token(user_id: user.id)
-        cookies.signed[:jwt] = {value: token, httponly: true,same_site: :lax, expires: 4.hour.from_now, domain: :all}
-        #         cookies.signed[:jwt] = {value: token, httponly: true,same_site: :none, secure: :true, expires: 4.hour.from_now, domain: :all}
-
-        # cookies.signed[:jwt] = {value: token, httponly: true}
+        cookies.signed[:jwt] = {value: token, expires: 4.hour.from_now, httponly: true,same_site: :lax, domain: :all}
 
     end
    

@@ -6,6 +6,7 @@ class AuthorizationController < ApplicationController
     
     
     def encode_token(payload)
+        payload[:exp] = 4.hours.from_now.to_i
         JWT.encode(payload, Rails.application.credentials.jwt_token,"HS256", {typ:"JWT"})
     end
     
