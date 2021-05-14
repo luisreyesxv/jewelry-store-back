@@ -65,7 +65,9 @@ class API::V1::UsersController < AuthorizationController
 
     def create_token(user)
         token= encode_token(user_id: user.id)
-        cookies.signed[:jwt] = {value: token, httponly: true,same_site: :none, secure: :true, expires: 4.hour.from_now, domain: :all}
+        cookies.signed[:jwt] = {value: token, httponly: true,same_site: :lax, expires: 4.hour.from_now, domain: :all}
+        #         cookies.signed[:jwt] = {value: token, httponly: true,same_site: :none, secure: :true, expires: 4.hour.from_now, domain: :all}
+
         # cookies.signed[:jwt] = {value: token, httponly: true}
 
     end
